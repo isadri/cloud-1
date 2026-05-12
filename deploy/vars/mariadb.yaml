@@ -1,2 +1,13 @@
 mariadb_bind_address: "{{ mariadb_container_name }}"
 mariadb_port: 3306
+
+mysql_database: "{{ vault_mysql_database }}"
+mysql_user: "{{ vault_mysql_user }}"
+mysql_password: "{{ vault_mysql_password }}"
+
+wp_title: "{{ vault_wp_title }}"
+wp_root: "{{ vault_wp_root }}"
+wp_root_password: "{{ vault_wp_root_password }}"
+wp_root_email: "{{ vault_wp_root_email }}"
+wp_user: "{{ vault_wp_user }}"
+wp_password: "{{ vault_wp_password }}"
