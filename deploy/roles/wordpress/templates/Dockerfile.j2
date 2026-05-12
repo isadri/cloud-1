@@ -8,15 +8,14 @@ WORKDIR {{ html_dir }}
 EXPOSE {{ php_fpm_port }}
 
 # install dependencies
-RUN apt-get update ; apt-get install -y curl php8.5-mysql php8.5-fpm sendmail
-
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar ; \
-    chmod +x wp-cli.phar ; mv wp-cli.phar /usr/local/bin/wp && \
-    sed -i "s/^listen .*/listen = {{ wordpress_container_name }}:{{ php_fpm_port }}/" /etc/php/8.5/fpm/pool.d/www.conf
+RUN apt-get update && apt-get install -y curl php7.4-mysql php7.4-fpm sendmail && \
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && \
+    sed -i "s/^listen .*/listen = {{ wordpress_container_name }}:{{ php_fpm_port }}/" /etc/php/7.4/fpm/pool.d/www.conf
 
 # copy script to launch
 COPY tools/entrypoint.sh .
 
 ENTRYPOINT [ "bash", "entrypoint.sh" ]
 
-CMD [ "/usr/sbin/php-fpm8.5", "-F" ]
+CMD [ "/usr/sbin/php-fpm7.4", "-F" ]
