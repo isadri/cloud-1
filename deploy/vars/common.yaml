@@ -1,6 +1,36 @@
+# The base directory of the application configurations
 base_dir: /opt/cloud-1/srcs/requirements
+
+# The author name
 author: luffy
 
+# The container name of mariadb
 mariadb_container_name: mariadb
+
+# The container name of wordpress
 wordpress_container_name: wordpress
+
+# The container name of nginx
 nginx_container_name: nginx
+
+# The context directory of nginx
+nginx_docker_compose_context: requirements/nginx
+
+# The context directory of wordpress
+wordpress_docker_compose_context: requirements/wordpress
+
+# The context directory of mariadb
+mariadb_docker_compose_context: requirements/mariadb
+
+# The directory to save WordPress files
+html_dir: /var/www/html
+
+network_name: app-network
+
+# The directory that will contain the certificate and the private key
+certs_dir: "{{ base_dir }}/nginx/certs"
+
+# The private key file used to generate certificate
+private_key_path: "{{ certs_dir }}/cert.key"
+
+image_tag: snow

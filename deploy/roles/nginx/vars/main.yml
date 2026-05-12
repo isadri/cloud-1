@@ -1,10 +1,4 @@
 ---
-# The directory that will contain the certificate and the private key
-certs_dir: "{{ base_dir }}/nginx/certs"
-
-# The private key file used to generate certificate
-private_key_path: "{{ certs_dir }}/cert.key"
-
 # HTTPS port
 https_port: 443
 
