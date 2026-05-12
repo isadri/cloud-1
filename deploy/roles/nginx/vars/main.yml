@@ -1,0 +1,15 @@
+---
+# The directory that will contain the certificate and the private key
+certs_dir: "{{ base_dir }}/nginx/certs"
+
+# The private key file used to generate certificate
+private_key_path: "{{ certs_dir }}/cert.key"
+
+# HTTPS port
+https_port: 443
+
+# HTTP port
+http_port: 80
+
+# The port PHP FPM is listening on
+php_fpm_port: 9000

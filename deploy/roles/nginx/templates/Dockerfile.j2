@@ -1,0 +1,15 @@
+FROM debian:bullseye
+
+LABEL author={{ author }}
+
+# our application will use the port 443
+EXPOSE {{ https_port }}
+
+# set /app as the working directory of the container
+WORKDIR /app
+
+# install dependencies
+RUN apt-get update ; apt-get install --no-install-recommends -y nginx
+
+# run nginx in the foreground
+CMD [ "nginx", "-g", "daemon off;" ]

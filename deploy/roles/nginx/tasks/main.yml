@@ -1,0 +1,36 @@
+---
+- name: Ensure SSL directory exists
+  ansible.builtin.file:
+    path: "{{ certs_dir }}"
+    state: directory
+
+- name: Create private key
+  community.crypto.openssl_privatekey:
+    path: "{{ private_key_path }}"
+    size: 4096
+    type: RSA
+    state: present
+
+- name: Create Certificate Signing Request (CSR) for self-signed certificate
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: "{{ private_key_path }}"
+    common_name: "{{ domain_name }}"
+  register: csr
+
+- name: Create self-signed certificate from CSR
+  community.crypto.x509_certificate:
+    path: "{{ certs_dir }}/cert.pem"
+    csr_content: "{{ csr.csr }}"
+    privatekey_path: "{{ private_key_path }}"
+    provider: selfsigned
+    state: present
+
+- name: Copy nginx configuration file and Dockerfile
+  ansible.builtin.template:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+  loop:
+    - dest: "{{ base_dir }}/nginx/conf/webserver.conf"
+      src: webserver.conf.j2
+    - dest: "{{ base_dir }}/nginx/Dockerfile"
+      src: Dockerfile.j2

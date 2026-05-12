@@ -1,0 +1,9 @@
+---
+# The name of the author. This is for Dockerfile only
+author: luffy
+
+# The directory to save WordPress files
+html_dir: /var/www/html
+
+# The name of wordpress container
+wordpress_container_name: wordpress

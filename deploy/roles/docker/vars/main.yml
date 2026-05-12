@@ -1,0 +1,2 @@
+---
+gpg_apt_key_file: /etc/apt/keyrings/docker.asc

@@ -1,0 +1,3 @@
+---
+# The port PHP FPM will listen on
+php_fpm_port: 9000

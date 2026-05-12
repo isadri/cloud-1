@@ -1,0 +1,2 @@
+mariadb_bind_address: "{{ mariadb_container_name }}"
+mariadb_port: 3306

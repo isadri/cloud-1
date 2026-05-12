@@ -1,0 +1,9 @@
+---
+# The directory containing WordPress files
+html_dir: /var/www/html
+
+# The domain name of the application to use in nginx configuration
+domain_name: "{{ inventory_hostname }}"
+
+# The directory inside the container containing certificates
+container_certs_dir: /etc/nginx/ssl

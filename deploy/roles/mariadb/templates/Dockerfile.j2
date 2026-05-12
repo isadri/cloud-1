@@ -1,0 +1,19 @@
+FROM debian:bullseye
+
+LABEL author={{ author }}
+
+# set /app as the working directory of the container
+WORKDIR /app
+
+EXPOSE {{ mariadb_port }}
+
+# install dependencies
+RUN apt-get update && apt-get install --no-install-recommends -y mariadb-server
+
+# copy file script
+COPY tools/entrypoint.sh .
+
+# create database and user for mariadb
+ENTRYPOINT [ "bash", "entrypoint.sh"]
+
+CMD [ "mysqld_safe" ]

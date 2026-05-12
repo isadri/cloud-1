@@ -1,0 +1,6 @@
+base_dir: /opt/cloud-1/srcs/requirements
+author: luffy
+
+mariadb_container_name: mariadb
+wordpress_container_name: wordpress
+nginx_container_name: nginx

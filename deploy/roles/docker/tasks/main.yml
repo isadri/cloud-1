@@ -1,0 +1,60 @@
+---
+- ansible.builtin.import_tasks:
+    file: install-packages.yaml
+  vars:
+    task_name: Install dependencies
+    package_list:
+      - curl
+      - ca-certificates
+
+- name: Ensure necessary directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+  loop:
+    - /etc/apt/keyrings
+
+- name: Add GPG apt key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: "{{ gpg_apt_key_file }}"
+    mode: "a+r"
+
+- name: Get host architecture
+  ansible.builtin.command: dpkg --print-architecture
+  register: arch
+  changed_when: false
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ arch.stdout }} signed-by={{ gpg_apt_key_file }}] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable"
+    state: present
+
+- ansible.builtin.import_tasks:
+    file: install-packages.yaml
+  vars:
+    task_name: Install Docker
+    package_list:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+- name: Create Docker group
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    append: true
+    groups: docker
+
+- name: Enable Docker at boot
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+
+- name: Reset connection to re-evaluate group membership of the current user
+  ansible.builtin.meta: reset_connection

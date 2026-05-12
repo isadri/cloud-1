@@ -1,0 +1,57 @@
+- hosts: webserver
+  become: true
+
+  vars_files:
+    - vars/common.yaml
+    - vars/mariadb.yaml
+
+  pre_tasks:
+    - name: Wait for instance to be up and running
+      ansible.builtin.wait_for_connection:
+        connect_timeout: 5
+        sleep: 1
+        timeout: 300
+      tags:
+        - webserver
+
+    - name: Ensure services' directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ base_dir }}/mariadb/tools"
+        - "{{ base_dir }}/mariadb/conf"
+        - "{{ base_dir }}/wordpress/tools"
+        - "{{ base_dir }}/nginx/conf"
+      tags:
+        - webserver
+
+    - name: Update cache
+      ansible.builtin.apt: update_cache=true
+      tags:
+        - webserver
+
+  tasks:
+    - ansible.builtin.import_role:
+        name: docker
+      tags:
+        - docker
+        - webserver
+
+    - ansible.builtin.import_role:
+        name: mariadb
+      tags:
+        - mariadb
+        - webserver
+
+    - ansible.builtin.import_role:
+        name: wordpress
+      tags:
+        - wordpress
+        - webserver
+
+    - ansible.builtin.import_role:
+        name: nginx
+      tags:
+        - nginx
+        - webserver

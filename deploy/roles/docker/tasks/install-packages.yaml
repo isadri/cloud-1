@@ -1,0 +1,4 @@
+- name: "{{ task_name }}"
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop: "{{ package_list }}"
