@@ -2,11 +2,13 @@
   become: true
 
   vars_files:
+    - vars/vault/mariadb.yaml
     - vars/common.yaml
     - vars/mariadb.yaml
+    - vars/nginx.yaml
 
   pre_tasks:
-    - name: Wait for instance to be up and running
+    - name: Wait for the remote host to be up and running
       ansible.builtin.wait_for_connection:
         connect_timeout: 5
         sleep: 1
@@ -14,7 +16,7 @@
       tags:
         - webserver
 
-    - name: Ensure services' directories exist
+    - name: Ensure services' directories exist on the remote host
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
@@ -54,4 +56,15 @@
         name: nginx
       tags:
         - nginx
+        - webserver
+
+    - ansible.builtin.import_tasks:
+        file: tasks/ssl.yaml
+
+    - ansible.builtin.import_tasks:
+        file: tasks/docker.yaml
+      vars:
+        base_dir: /opt/cloud-1/srcs
+      tags:
+        - docker-compose
         - webserver
