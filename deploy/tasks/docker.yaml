@@ -1,0 +1,9 @@
+- name: Copy docker-compose.yaml and .env files to the host
+  ansible.builtin.template:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+  loop:
+    - dest: "{{ base_dir }}/docker-compose.yaml"
+      src: "templates/docker-compose.yaml.j2"
+    - dest: "{{ base_dir }}/.env"
+      src: "templates/.env.j2"

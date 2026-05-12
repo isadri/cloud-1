@@ -1,0 +1,68 @@
+services:
+  nginx:
+    image: nginx:{{ image_tag }}
+    build:
+      context: {{ nginx_docker_compose_context }}
+    container_name: {{ nginx_container_name }}
+    env_file:
+      - .env
+    ports: {{ nginx_ports_to_open }}
+    restart: unless-stopped
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    volumes:
+      - wordpress-html:{{ html_dir }}
+      - ./{{ nginx_docker_compose_context }}/ssl:/etc/nginx/ssl
+    networks:
+      - {{ network_name }}
+
+  wordpress:
+    image: wordpress:{{ image_tag }}
+    build:
+      context: {{ wordpress_docker_compose_context }}
+    container_name: {{ wordpress_container_name }}
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - wordpress-html:{{ html_dir }}
+    healthcheck:
+      test: ["CMD-SHELL", "/etc/init.d/php8.5-fpm status | grep running > /dev/null"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks:
+      - {{ network_name }}
+
+  mariadb:
+    image: mariadb:{{ image_tag }}
+    build:
+      context: {{ mariadb_docker_compose_context }}
+    container_name: {{ mariadb_container_name }}
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+      - ./{{ mariadb_docker_compose_context }}/conf/my.cnf:/etc/mysql/my.cnf
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks:
+      - {{ network_name }}
+
+networks:
+  {{ network_name }}:
+    name: {{ network_name }}
+
+volumes:
+  db:
+    name: db
+  wordpress-html:
+    name: worpdress-html
