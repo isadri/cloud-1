@@ -11,5 +11,11 @@ WORKDIR /app
 # install dependencies
 RUN apt-get update ; apt-get install --no-install-recommends -y nginx
 
+# Copy nginx configuration
+COPY ./conf/webserver.conf /etc/nginx/sites-available/
+
+# Enable nginx configuration
+RUN ln -s /etc/nginx/sites-available/webserver.conf /etc/nginx/sites-enabled/webserver.conf
+
 # run nginx in the foreground
 CMD [ "nginx", "-g", "daemon off;" ]
