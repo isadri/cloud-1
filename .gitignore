@@ -3,3 +3,5 @@
 .vagrant
 test.yaml
 .venv/
+
+.terraform/
