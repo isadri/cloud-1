@@ -4,3 +4,5 @@
 vault/
 test.yaml
 .venv/
+
+.terraform/
