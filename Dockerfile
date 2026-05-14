@@ -7,16 +7,23 @@ RUN apt-get update && apt-get install -y gnupg wget lsb-release && wget -O - htt
 
 FROM python:3.14-alpine3.22
 
+# Change working directory
 WORKDIR /app
 
-COPY requirements.txt /app
+# Copy requirements.txt (for pip)
+COPY ./requirements.txt /app
+
+# Copy terraform binary from builder stage
 COPY --from=builder /usr/bin/terraform /usr/bin/terraform
 
 # Install dependencies
-RUN pip install -r requirements.txt && apk add --no-cache aws-cli openssh
+RUN pip install -r requirements.txt && ansible-galaxy install -r /app/srcs/deploy/requirements.yaml && \
+    apk add --no-cache aws-cli openssh
 
+# Copy deployment script
 COPY ./deploy.sh /app
 
+# Make the deployment script executable
 RUN chmod +x /app/deploy.sh
 
 CMD [ "/app/deploy.sh" ]
