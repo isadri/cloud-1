@@ -42,3 +42,6 @@ certificate_path: "{{ certs_dir }}/cert.crt"
 
 # The image tag used when building docker images
 image_tag: snow
+
+# Force the regeneration of private key and certifcate file
+force_ssl_regenerate: false
