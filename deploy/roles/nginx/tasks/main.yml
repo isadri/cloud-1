@@ -4,7 +4,7 @@
     dest: "{{ item.dest }}"
     src: "{{ item.src }}"
   loop:
-    - dest: "{{ base_dir }}/nginx/conf/webserver.conf"
+    - dest: "{{ requirements_dir }}/nginx/conf/webserver.conf"
       src: webserver.conf.j2
-    - dest: "{{ base_dir }}/nginx/Dockerfile"
+    - dest: "{{ requirements_dir }}/nginx/Dockerfile"
       src: Dockerfile.j2

@@ -2,7 +2,9 @@
 domain_name: "{{ inventory_hostname }}"
 
 # The base directory of the application configurations
-base_dir: /opt/cloud-1/srcs/requirements
+base_dir: /opt/cloud-1/srcs
+
+requirements_dir: "{{ base_dir }}/requirements"
 
 # The author name
 author: luffy
@@ -32,7 +34,7 @@ html_dir: /var/www/html
 network_name: app-network
 
 # The directory that will contain the certificate and the private key
-certs_dir: "{{ base_dir }}/nginx/certs"
+certs_dir: "{{ requirements_dir }}/nginx/certs"
 
 # The private key file used to generate certificate
 private_key_path: "{{ certs_dir }}/cert.key"
@@ -42,6 +44,3 @@ certificate_path: "{{ certs_dir }}/cert.crt"
 
 # The image tag used when building docker images
 image_tag: snow
-
-# Force the regeneration of private key and certifcate file
-force_ssl_regenerate: false

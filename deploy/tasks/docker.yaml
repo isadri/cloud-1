@@ -3,7 +3,7 @@
     dest: "{{ item.dest }}"
     src: "{{ item.src }}"
   loop:
-    - dest: "{{ base_dir }}/docker-compose.yaml"
+    - dest: "{{ requirements_dir }}/docker-compose.yaml"
       src: "templates/docker-compose.yaml.j2"
     - dest: "{{ requirements_dir }}/.env"
       src: "templates/.env.j2"

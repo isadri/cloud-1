@@ -1,7 +1,7 @@
 ---
 - name: Copy entrypoint file
   ansible.builtin.copy:
-    dest: "{{ base_dir }}/mariadb/tools/"
+    dest: "{{ requirements_dir }}/mariadb/tools/"
     src: entrypoint.sh
 
 - name: Copy configuration file and Dockerfile
@@ -9,7 +9,7 @@
     dest: "{{ item.dest }}"
     src: "{{ item.src }}"
   loop:
-    - dest: "{{ base_dir }}/mariadb/conf/my.cnf"
+    - dest: "{{ requirements_dir }}/mariadb/conf/my.cnf"
       src: my.cnf.j2
-    - dest: "{{ base_dir }}/mariadb/Dockerfile"
+    - dest: "{{ requirements_dir }}/mariadb/Dockerfile"
       src: Dockerfile.j2
