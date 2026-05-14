@@ -4,4 +4,4 @@ regions:
   - us-east-2
 
 groups:
-  webserver: tags.UsedForAnsible == 'true'
+  webserver: tags.UsedForAnsible == '1'

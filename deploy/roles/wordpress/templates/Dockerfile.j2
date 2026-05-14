@@ -3,7 +3,7 @@ FROM debian:bullseye
 LABEL author={{ author }}
 
 # change working directory
-WORKDIR {{ html_dir }}
+WORKDIR /app
 
 EXPOSE {{ php_fpm_port }}
 
@@ -14,8 +14,14 @@ RUN apt-get update && apt-get install -y curl php7.4-mysql php7.4-fpm sendmail &
     sed -i "s/^listen .*/listen = {{ wordpress_container_name }}:{{ php_fpm_port }}/" /etc/php/7.4/fpm/pool.d/www.conf
 
 # copy script to launch
-COPY tools/entrypoint.sh .
+COPY ./tools/entrypoint.sh /app/
 
-ENTRYPOINT [ "bash", "entrypoint.sh" ]
+# Make entrypoint.sh executable
+RUN chmod +x /app/entrypoint.sh
+
+# change working directory
+WORKDIR {{ html_dir }}
+
+ENTRYPOINT [ "/app/entrypoint.sh" ]
 
 CMD [ "/usr/sbin/php-fpm7.4", "-F" ]

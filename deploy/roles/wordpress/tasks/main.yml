@@ -1,10 +1,10 @@
 ---
 - name: Copy entrypoint.sh file to the host
   ansible.builtin.copy:
-    dest: "{{ base_dir }}/wordpress/tools/entrypoint.sh"
+    dest: "{{ requirements_dir }}/wordpress/tools/entrypoint.sh"
     src: entrypoint.sh
 
 - name: Copy Dockerfile to the host
   ansible.builtin.template:
-    dest: "{{ base_dir }}/wordpress/Dockerfile"
+    dest: "{{ requirements_dir }}/wordpress/Dockerfile"
     src: Dockerfile.j2

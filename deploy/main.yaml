@@ -21,10 +21,10 @@
         path: "{{ item }}"
         state: directory
       loop:
-        - "{{ base_dir }}/mariadb/tools"
-        - "{{ base_dir }}/mariadb/conf"
-        - "{{ base_dir }}/wordpress/tools"
-        - "{{ base_dir }}/nginx/conf"
+        - "{{ requirements_dir }}/mariadb/tools"
+        - "{{ requirements_dir }}/mariadb/conf"
+        - "{{ requirements_dir }}/wordpress/tools"
+        - "{{ requirements_dir }}/nginx/conf"
       tags:
         - webserver
 
@@ -60,11 +60,17 @@
 
     - ansible.builtin.import_tasks:
         file: tasks/ssl.yaml
+      vars:
+        # Force the regeneration of private key and certifcate file
+        force_ssl_regenerate: false
 
     - ansible.builtin.import_tasks:
         file: tasks/docker.yaml
       vars:
-        base_dir: /opt/cloud-1/srcs
+        # The name of the project
+        project_name: "cloud-1"
+        remove_volumes: true
+        application_state: present
       tags:
         - docker-compose
         - webserver

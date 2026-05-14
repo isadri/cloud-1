@@ -1,7 +1,6 @@
 .passwd
 .ansible
 .vagrant
-vault/
 test.yaml
 .venv/
 

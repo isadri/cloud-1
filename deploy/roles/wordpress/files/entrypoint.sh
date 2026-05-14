@@ -11,7 +11,7 @@ if ! wp core is-installed --allow-root >> /dev/null 2>&1; then
         --dbpass=$MYSQL_PASSWORD --dbhost=$DB_HOST --allow-root
 
     echo "Create WordPress database tables"
-    wp core install --url=$DOMAIN_NAME --title=$WP_TITLE \
+    wp core install --url=$DOMAIN_NAME --title="$WP_TITLE" \
         --admin_user=$WP_ROOT --admin_password=$WP_ROOT_PASSWORD \
         --admin_email=$WP_ROOT_EMAIL --allow-root
 
