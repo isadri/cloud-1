@@ -1,0 +1,12 @@
+services:
+  cloud-1:
+    image: cloud-1:dev
+    build:
+      context: .
+    container_name: cloud-1
+    env_file:
+      - .env
+    volumes:
+      - ./srcs:/app/srcs
+      - ./learn.pem:/app/srcs/deploy/learn.pem
+      - ./.passwd:/app/srcs/deploy/.passwd

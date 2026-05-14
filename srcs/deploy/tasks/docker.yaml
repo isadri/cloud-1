@@ -12,7 +12,6 @@
   community.docker.docker_compose_v2:
     project_src: "{{ base_dir }}"
     build: always
-    project_name: "{{ project_name }}"
     remove_volumes: "{{ remove_volumes | bool }}"
     state: "{{ application_state }}"
   tags:

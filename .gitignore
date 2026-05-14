@@ -9,3 +9,6 @@ test.yaml
 
 *.tfstate.backup
 *.lock.hcl
+
+.env
+*.pem

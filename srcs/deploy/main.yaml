@@ -68,7 +68,6 @@
         file: tasks/docker.yaml
       vars:
         # The name of the project
-        project_name: "cloud-1"
         remove_volumes: true
         application_state: present
       tags:

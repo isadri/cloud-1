@@ -1,5 +1,6 @@
 locals {
   instance_type = "t2.micro"
+  ami_owners    = ["099720109477"]
 }
 
 resource "aws_security_group" "allow_access" {
@@ -20,7 +21,7 @@ data "aws_ami" "image" {
   most_recent = true
 
   # Ubuntu
-  owners = ["099720109477"]
+  owners = local.ami_owners
 
   filter {
     name   = "architecture"

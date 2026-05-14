@@ -7,3 +7,8 @@ output "public_dns" {
   description = "The public DNS of the instance"
   value       = aws_instance.app.public_dns
 }
+
+output "instance_id" {
+  description = "The instance ID"
+  value       = aws_instance.app.id
+}
