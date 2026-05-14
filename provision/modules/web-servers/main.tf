@@ -45,16 +45,16 @@ resource "aws_launch_template" "app" {
   key_name      = var.key_name
 
   network_interfaces {
-    security_groups = [aws_security_group.allow_access.id]
-    subnet_id       = var.subnet_id
+    security_groups             = [aws_security_group.allow_access.id]
+    subnet_id                   = var.subnet_id
+    associate_public_ip_address = true
   }
 
   tag_specifications {
     resource_type = "instance"
 
     tags = {
-      Name = "${var.project_name}-instance"
-      UsedForAnsible = true
+      UsedForAnsible = "1"
     }
   }
 }
@@ -62,5 +62,10 @@ resource "aws_launch_template" "app" {
 resource "aws_instance" "app" {
   launch_template {
     id = aws_launch_template.app.id
+  }
+
+  tags = {
+    Name = "${var.project_name}-instance"
+      UsedForAnsible = "1"
   }
 }
