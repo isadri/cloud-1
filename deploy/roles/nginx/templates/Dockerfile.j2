@@ -9,7 +9,7 @@ EXPOSE {{ https_port }}
 WORKDIR /app
 
 # install dependencies
-RUN apt-get update ; apt-get install --no-install-recommends -y nginx
+RUN apt-get update && apt-get install --no-install-recommends -y nginx
 
 # Copy nginx configuration
 COPY ./conf/webserver.conf /etc/nginx/sites-available/
