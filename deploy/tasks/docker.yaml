@@ -3,9 +3,9 @@
     dest: "{{ item.dest }}"
     src: "{{ item.src }}"
   loop:
-    - dest: "{{ requirements_dir }}/docker-compose.yaml"
+    - dest: "{{ base_dir }}/docker-compose.yaml"
       src: "templates/docker-compose.yaml.j2"
-    - dest: "{{ requirements_dir }}/.env"
+    - dest: "{{ base_dir }}/.env"
       src: "templates/.env.j2"
 
 - name: "{{ (application_state == 'present') | ternary('Start', 'Stop') }} application"
