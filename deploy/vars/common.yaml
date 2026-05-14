@@ -1,3 +1,6 @@
+# The domain name
+domain_name: "{{ inventory_hostname }}"
+
 # The base directory of the application configurations
 base_dir: /opt/cloud-1/srcs/requirements
 
@@ -25,6 +28,7 @@ mariadb_docker_compose_context: requirements/mariadb
 # The directory to save WordPress files
 html_dir: /var/www/html
 
+# The network name to run the containers in
 network_name: app-network
 
 # The directory that will contain the certificate and the private key
@@ -33,4 +37,8 @@ certs_dir: "{{ base_dir }}/nginx/certs"
 # The private key file used to generate certificate
 private_key_path: "{{ certs_dir }}/cert.key"
 
+# The path of the certificate
+certificate_path: "{{ certs_dir }}/cert.crt"
+
+# The image tag used when building docker images
 image_tag: snow
