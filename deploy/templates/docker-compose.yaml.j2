@@ -4,9 +4,7 @@ services:
     build:
       context: {{ nginx_docker_compose_context }}
     container_name: {{ nginx_container_name }}
-    env_file:
-      - .env
-    ports: {{ nginx_ports_to_open }}
+    ports: {{ nginx_mapping_ports }}
     restart: unless-stopped
     depends_on:
       wordpress:
