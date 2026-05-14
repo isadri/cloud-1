@@ -40,6 +40,11 @@
       - docker-buildx-plugin
       - docker-compose-plugin
 
+- name: Enable Docker at boot
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+
 - name: Create Docker group
   ansible.builtin.group:
     name: docker
@@ -50,11 +55,6 @@
     name: "{{ ansible_user }}"
     append: true
     groups: docker
-
-- name: Enable Docker at boot
-  ansible.builtin.service:
-    name: docker
-    enabled: true
 
 - name: Reset connection to re-evaluate group membership of the current user
   ansible.builtin.meta: reset_connection
