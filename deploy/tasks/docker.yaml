@@ -5,5 +5,13 @@
   loop:
     - dest: "{{ base_dir }}/docker-compose.yaml"
       src: "templates/docker-compose.yaml.j2"
-    - dest: "{{ base_dir }}/.env"
+    - dest: "{{ requirements_dir }}/.env"
       src: "templates/.env.j2"
+
+- name: "{{ (application_state == 'present') | ternary('Start', 'Stop') }} application"
+  community.docker.docker_compose_v2:
+    project_src: "{{ base_dir }}"
+    build: true
+    project_name: "{{ project_name }}"
+    remove_volumes: "{{ remove_volumes | bool }}"
+    state: "{{ application_state | bool }}"
