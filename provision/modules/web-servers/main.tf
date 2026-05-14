@@ -65,7 +65,7 @@ resource "aws_instance" "app" {
   }
 
   tags = {
-    Name = "${var.project_name}-instance"
-      UsedForAnsible = "1"
+    Name           = "${var.project_name}-instance"
+    UsedForAnsible = "1"
   }
 }
