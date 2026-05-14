@@ -29,7 +29,7 @@ services:
     volumes:
       - wordpress-html:{{ html_dir }}
     healthcheck:
-      test: ["CMD-SHELL", "/etc/init.d/php8.5-fpm status | grep running > /dev/null"]
+      test: ["CMD-SHELL", "/etc/init.d/php7.4-fpm status | grep running > /dev/null"]
       interval: 5s
       timeout: 3s
       retries: 12
