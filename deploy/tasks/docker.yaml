@@ -14,4 +14,6 @@
     build: always
     project_name: "{{ project_name }}"
     remove_volumes: "{{ remove_volumes | bool }}"
-    state: "{{ application_state | bool }}"
+    state: "{{ application_state }}"
+  tags:
+    - start-app
