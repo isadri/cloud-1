@@ -17,7 +17,8 @@ COPY ./requirements.txt /app/
 COPY --from=builder /usr/bin/terraform /usr/bin/terraform
 
 # Install dependencies
-RUN pip install -r requirements.txt && ansible-galaxy install -r /app/srcs/deploy/requirements.yaml && \
+#ansible-galaxy install -r /app/srcs/deploy/requirements.yaml && \
+RUN pip install -r requirements.txt && \
     apk add --no-cache aws-cli openssh
 
 # Copy deployment script
