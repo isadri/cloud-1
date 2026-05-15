@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /app/srcs/provision/live/stage/app
+cd $m_TERRAFORM_ROOT_MODULE
 
 terraform init
 terraform apply -auto-approve
@@ -19,9 +19,9 @@ done
 
 echo "Instance is ready!"
 
-echo "Deploy application"
-cd /app/srcs/deploy
-ansible-playbook main.yaml -i inventories/stage/hosts.aws_ec2.yaml --vault-password-file .passwd
+python3 -c 'print("  🚀 Deploy application")'
+cd $m_ANSIBLE_CONFIG_DIR
+ansible-playbook main.yaml -i $m_ANSIBLE_INVENTORY_FILE --vault-password-file .passwd
 
 echo "Visit the page and have fun!"
 echo "$(terraform output -raw public_dns)"
