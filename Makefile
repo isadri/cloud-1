@@ -1,4 +1,5 @@
-PLAYBOOK_FILE := test.yaml
+provision-infra:
+	docker compose run -it --rm --workdir /app/srcs/provision/live/stage/app cloud-1 terraform apply
 
-tf-apply:
-	docker compose run cloud-1 
+destroy-infra:
+	docker compose run -it --rm --workdir /app/srcs/provision/live/stage/app cloud-1 terraform destroy
