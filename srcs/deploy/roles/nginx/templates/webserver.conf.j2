@@ -26,7 +26,10 @@ server {
 	}
 
 	location ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass {{ wordpress_container_name }}:{{ php_fpm_port }};
+		try_files $uri =404;
+
+		include fastcgi.conf;
+		fastcgi_index index.php;
+		fastcgi_pass backend;
 	}
 }
