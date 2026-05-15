@@ -1,5 +1,9 @@
 server_names_hash_bucket_size 128;
 
+upstream backend {
+	server {{ php_fpm_host }}:{{ php_fpm_port }};
+}
+
 server {
     listen {{ http_port }};
     server_name {{ domain_name }};

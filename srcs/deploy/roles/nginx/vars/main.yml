@@ -7,3 +7,4 @@ http_port: 80
 
 # The port PHP FPM is listening on
 php_fpm_port: 9000
+php_fpm_host: "{{ wordpress_container_name }}"
