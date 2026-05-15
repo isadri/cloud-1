@@ -11,10 +11,10 @@ INSTANCE_ID="$(terraform output -raw instance_id)"
 
 echo "Waiting for the instance to pass status checks ..."
 while [ "$(aws ec2 describe-instance-status --region $AWS_REGION --instance-ids $INSTANCE_ID --query 'InstanceStatuses[*].{InstanceStatus:InstanceStatus.Status,SystemStatus:SystemStatus.Status}' --output text | awk '{print $1,$2}')" != "ok ok" ]; do
-    echo "Waiting for the instance to pass status checks ..."
-    sleep 5
-    if [ "$count" -gt "1200" ]; then
-        echo "Instance is not healthy" >&2
+    retries=$((retries + 1))
+    if [ "$retries" -gt "60" ]; then
+        python3 -c 'print("  ✖️ Instance is not ready")' >&2
+        echo "Exiting..."
         exit 1
     fi
     sleep 10
