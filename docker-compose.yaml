@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     environment:
-      m_TERRAFORM_ROOT_MODULE: /app/srcs/provision/live/stage/app
+      m_TERRAFORM_ROOT_MODULE: /app/srcs/infra/live/stage/app
       m_ANSIBLE_CONFIG_DIR: /app/srcs/deploy
       m_ANSIBLE_INVENTORY_FILE: inventories/stage/hosts.aws_ec2.yaml
     volumes:
