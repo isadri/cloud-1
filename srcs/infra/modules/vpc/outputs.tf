@@ -20,5 +20,5 @@ output "subnet_id" {
 
 output "vpc_id" {
   description = "The VPC ID"
-  value       = aws_vpc.vpc.id
+  value       = aws_vpc.main.id
 }
