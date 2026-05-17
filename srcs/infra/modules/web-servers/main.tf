@@ -50,14 +50,6 @@ resource "aws_launch_template" "app" {
     subnet_id                   = var.subnet_id
     associate_public_ip_address = true
   }
-
-  tag_specifications {
-    resource_type = "instance"
-
-    tags = {
-      UsedForAnsible = "1"
-    }
-  }
 }
 
 resource "aws_instance" "app" {
