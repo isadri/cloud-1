@@ -6,7 +6,7 @@ terraform init
 terraform apply -auto-approve
 
 retries=0
-PUBLIC_DNS="$(terraform output -raw public_dns)"
+PUBLIC_DNS="$(terraform output -raw public_ip)"
 INSTANCE_ID="$(terraform output -raw instance_id)"
 
 echo "Waiting for the instance to pass status checks ..."

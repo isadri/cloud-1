@@ -1,0 +1,5 @@
+droplet_name = "Cloud1"
+region       = "fra1"
+size         = "s-1vcpu-512mb-10gb"
+image        = "ubuntu-22-04-x64"
+ssh_key_name = "cloud1"

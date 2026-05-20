@@ -7,9 +7,12 @@ services:
     env_file:
       - .env
     environment:
-      m_TERRAFORM_ROOT_MODULE: /app/srcs/infra/live/stage/app
+      # m_TERRAFORM_ROOT_MODULE: /app/srcs/infra/live/stage/app
+      m_TERRAFORM_ROOT_MODULE: /app/srcs/infra/digitalocean
       m_ANSIBLE_CONFIG_DIR: /app/srcs/deploy
-      m_ANSIBLE_INVENTORY_FILE: inventories/stage/hosts.aws_ec2.yaml
+      # m_ANSIBLE_INVENTORY_FILE: inventories/stage/hosts.aws_ec2.yaml
+      m_ANSIBLE_INVENTORY_FILE: inventories/digitalocean/hosts.ini
+
     volumes:
       - ./srcs:/app/srcs
       - ./learn.pem:/app/srcs/deploy/learn.pem

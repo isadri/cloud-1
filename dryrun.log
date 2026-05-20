@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/efarhat/Desktop/cloud1-issam'
+docker compose run -it --rm --workdir /app/srcs/infra/live/stage/app cloud-1 terraform apply
+make: Leaving directory `/Users/efarhat/Desktop/cloud1-issam'
+ 
