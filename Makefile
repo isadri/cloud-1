@@ -1,3 +1,6 @@
+deploy:
+	docker compose up --build
+
 provision-infra:
 	docker compose run -it --rm --workdir /app/srcs/infra/live/stage/app cloud-1 terraform apply
 
